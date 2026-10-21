@@ -79,6 +79,12 @@ npm test
 npm start
 ```
 
+Diagnósticos opcionais na pasta `backend`: `npm run check:providers` verifica
+autenticação/listagem de modelos; `npm run smoke:providers` faz uma chamada real
+curta por provedor configurado, sem fallback, para não mascarar falhas. O segundo
+pode consumir créditos. Os scripts não imprimem chaves nem erros brutos.
+Uma listagem de modelos bem-sucedida não garante saldo ou permissão para gerar respostas.
+
 O servidor escuta apenas `127.0.0.1:8787`, não registra prompts/chaves nem retorna
 erros brutos dos provedores. Não precisa instalar pacotes externos.
 O token do proxy é uma credencial pessoal distinta das chaves dos provedores;
