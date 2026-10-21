@@ -171,7 +171,7 @@ class _KayParticlePainter extends CustomPainter {
           .5 + .5 * math.sin(phase + i * .105 + seed * math.pi);
       final dynamicBlend = reduceMotion
           ? blend
-          : (blend + transitionWave * .035).clamp(0.0, 1.0);
+          : (blend + transitionWave * .035).clamp(0.0, 1.0).toDouble();
 
       var nx = _mix(k.dx, cloud.dx, dynamicBlend);
       var ny = _mix(k.dy, cloud.dy, dynamicBlend);
@@ -187,12 +187,13 @@ class _KayParticlePainter extends CustomPainter {
       // a voice waveform than to a loading spinner.
       if (!reduceMotion && state == KayState.speaking) {
         final voice =
-            .035 +
-            .055 *
-                math.pow(
-                  math.sin(phase * 2.4 + seed * 8 + i * .07),
-                  2,
-                );
+            (.035 +
+                    .055 *
+                        math.pow(
+                          math.sin(phase * 2.4 + seed * 8 + i * .07),
+                          2,
+                        ))
+                .toDouble();
         nx *= 1 + voice;
         ny *= 1 + voice * .72;
       }
@@ -212,7 +213,9 @@ class _KayParticlePainter extends CustomPainter {
           (state == KayState.speaking ? .95 + twinkle * .35 : 1);
 
       final alpha =
-          (.52 + secondarySeed * .35 + twinkle * .1).clamp(0.0, 1.0);
+          (.52 + secondarySeed * .35 + twinkle * .1)
+              .clamp(0.0, 1.0)
+              .toDouble();
 
       final glowPaint = Paint()
         ..color = stateColor.withValues(alpha: alpha * .18)
