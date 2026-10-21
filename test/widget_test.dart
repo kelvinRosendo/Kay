@@ -31,7 +31,7 @@ void main() {
       MaterialApp(home: HomeScreen(controller: controller)),
     );
     expect(find.text('Toque no K para falar'), findsOneWidget);
-    await tester.tap(find.byType(TextButton));
+    await tester.tap(find.byType(KayCore));
     await tester.pump();
     expect(
       tester.widget<KayCore>(find.byType(KayCore)).state,
@@ -69,7 +69,7 @@ void main() {
       ),
     );
     await tester.pumpAndSettle();
-    expect(find.text('K'), findsOneWidget);
+    expect(find.byType(KayCore), findsOneWidget);
     expect(tester.takeException(), isNull);
   });
 }

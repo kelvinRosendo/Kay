@@ -35,6 +35,7 @@ class _LlmSettingsState extends State<LlmSettings> {
           decoration: const InputDecoration(labelText: 'Token de acesso do proxy (nesta sessão)')),
         const SizedBox(height: 12),
         DropdownButtonFormField<String>(
+          isExpanded: true,
           initialValue: widget.prefs.llmProvider,
           decoration: const InputDecoration(labelText: 'Provedor'),
           items: const [
