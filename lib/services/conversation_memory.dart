@@ -8,13 +8,12 @@
 /// history at that point.
 class ConversationMemory {
   ConversationMemory({
-    int maxExchanges = 6,
+    this.maxExchanges = 6,
     this.maxMessageBytes = 4096,
     DateTime Function()? now,
-  })  : _maxExchanges = maxExchanges,
-        _now = now ?? DateTime.now;
+  }) : _now = now ?? DateTime.now;
 
-  final int _maxExchanges;
+  final int maxExchanges;
   final int maxMessageBytes;
   final DateTime Function() _now;
 
@@ -25,7 +24,7 @@ class ConversationMemory {
   bool get isEmpty => _messages.isEmpty;
   DateTime? get lastActivity => _lastActivity;
 
-  /// Adds a user/assistant exchange pair. Old pairs beyond [_maxExchanges]
+  /// Adds a user/assistant exchange pair. Old pairs beyond [maxExchanges]
   /// are discarded. Each message is truncated to [maxMessageBytes].
   void addExchange({required String user, required String assistant}) {
     _touch();
@@ -60,8 +59,8 @@ class ConversationMemory {
   void _touch() => _lastActivity = _now();
 
   void _trim() {
-    // Each exchange is 2 messages; keep at most _maxExchanges pairs.
-    final maxMessages = _maxExchanges * 2;
+    // Each exchange is 2 messages; keep at most maxExchanges pairs.
+    final maxMessages = maxExchanges * 2;
     while (_messages.length > maxMessages) {
       _messages.removeAt(0);
       _messages.removeAt(0); // remove the pair
