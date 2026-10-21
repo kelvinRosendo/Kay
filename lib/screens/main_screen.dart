@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../controllers/kay_controller.dart';
 import '../services/device_voice_service.dart';
-import '../services/ollama_ai_service.dart';
+import '../services/proxy_ai_service.dart';
 import '../services/permission_service.dart';
 import '../services/preferences_service.dart';
 import '../services/system_status_service.dart';
@@ -44,6 +44,7 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
   late final AppPermissions _permissions;
   late final SystemStatusService _system;
   late bool _ownController;
+  ProxyAiService? _proxy;
 
   KayPage _currentPage = KayPage.conversa;
   bool _sidebarOpen = false;
@@ -56,10 +57,10 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     _ownController = widget.controller == null;
+    _prefs = widget.prefs ?? PreferencesService();
     _controller =
         widget.controller ??
-        KayController(DeviceVoiceService(), ai: OllamaAiService());
-    _prefs = widget.prefs ?? PreferencesService();
+        KayController(DeviceVoiceService(), ai: _proxy = ProxyAiService(_prefs));
     _permissions = widget.permissions ?? DeviceAppPermissions();
     _system = widget.systemStatus ?? SystemStatusService();
     WidgetsBinding.instance.addObserver(this);
@@ -172,6 +173,7 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     if (_ownController) _controller.dispose();
+    _proxy?.close();
     super.dispose();
   }
 

@@ -12,6 +12,24 @@ class PreferencesService extends ChangeNotifier {
   bool _initialized = false;
   bool get initialized => _initialized;
 
+  // Personal proxy token is deliberately session-only, never persisted.
+  String proxyToken = '';
+  bool get cloudEnabled => _p.getBool('kay_cloud_enabled') ?? false;
+  set cloudEnabled(bool value) {
+    _p.setBool('kay_cloud_enabled', value);
+    notifyListeners();
+  }
+  String get proxyUrl => _p.getString('kay_proxy_url') ?? '';
+  set proxyUrl(String value) {
+    _p.setString('kay_proxy_url', value);
+    notifyListeners();
+  }
+  String get llmProvider => _p.getString('kay_llm_provider') ?? 'auto';
+  set llmProvider(String value) {
+    _p.setString('kay_llm_provider', value);
+    notifyListeners();
+  }
+
   // ── Keys ──────────────────────────────────────────────────────
   static const _kTextScale = 'kay_text_scale'; // small=0, medium=1, large=2
   static const _kUserName = 'kay_user_name';
@@ -130,6 +148,10 @@ class PreferencesService extends ChangeNotifier {
 
   // ── Reset ─────────────────────────────────────────────────────
   Future<void> resetToDefaults() async {
+    proxyToken = '';
+    await _p.remove('kay_cloud_enabled');
+    await _p.remove('kay_proxy_url');
+    await _p.remove('kay_llm_provider');
     await _p.remove(_kTextScale);
     await _p.remove(_kUserName);
     await _p.remove(_kUseNameInReplies);

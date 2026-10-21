@@ -1,0 +1,12 @@
+{
+  "name": "kay-llm-proxy",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node --env-file=.env server.mjs",
+    "test": "node --test",
+    "check:providers": "node --env-file=.env check-providers.mjs",
+    "smoke:providers": "node --env-file=.env smoke-providers.mjs"
+  },
+  "engines": { "node": ">=22" }
+}
