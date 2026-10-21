@@ -8,6 +8,7 @@ import '../services/system_status_service.dart';
 import '../services/voice_selection_service.dart';
 import '../theme/kay_theme.dart';
 import '../widgets/voice_picker.dart';
+import '../widgets/llm_settings.dart';
 class ConfiguracoesScreen extends StatefulWidget {
   const ConfiguracoesScreen({
     super.key,
@@ -72,6 +73,7 @@ class _ConfiguracoesScreenState extends State<ConfiguracoesScreen> {
                     _PersonalizationCard(prefs: prefs, controller: controller),
                     const SizedBox(height: 22),
                     const _SectionTitle('IA'),
+                    LlmSettings(prefs: prefs),
                     _AiCard(prefs: prefs),
                   ],
                 ),

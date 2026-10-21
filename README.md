@@ -1,5 +1,11 @@
 # Kay
 
+## IA com múltiplos provedores
+
+O Kay oferece OpenAI, Google Gemini e Groq por um proxy autenticado, seleção
+automática/manual e fallback com controle de custo. As chaves ficam no servidor.
+Veja o [guia de configuração e teste no Android](docs/LLM_SETUP.md).
+
 <p align="center">
   <strong>Um assistente pessoal de voz para Android, inspirado no Jarvis.</strong><br>
   <sub>Calmo na interface. Local na inteligência. Preparado para evoluir.</sub>

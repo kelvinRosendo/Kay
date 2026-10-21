@@ -39,7 +39,7 @@ class AiUnavailable extends AiError {
   const AiUnavailable();
   @override
   String get message =>
-      'A IA está indisponível. Verifique se o Ollama está rodando no computador.';
+      'A IA está indisponível. Verifique o servidor e a configuração da IA.';
 }
 
 class ServerUnreachable extends AiError {

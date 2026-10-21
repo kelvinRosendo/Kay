@@ -19,6 +19,7 @@ class OllamaAiService implements AiService {
   final http.Client _client;
   final String baseUrl;
   final String model;
+  void close() => _client.close();
 
   /// Lightweight connectivity check against the Ollama server. Never returns
   /// an error; reports success only when the server answers `/api/tags`.
